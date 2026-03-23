@@ -1,0 +1,21 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd /Users/gask/Documents/claude-code/企業流程自動化 && if ! git diff --quiet || ! git diff --cached --quiet || [ -n \"$(git ls-files --others --exclude-standard)\" ]; then git add -A && git commit -m \"auto: $(date +\"%Y-%m-%d %H:%M\") 自動更新\" && git push; fi",
+            "timeout": 60,
+            "statusMessage": "推送更新至 GitHub..."
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git:*)"
+    ]
+  }
+}
