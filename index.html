@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>企業流程自動化服務 — 3 週搞定，立即有感</title>
+<style>
+  :root {
+    --primary: #1a56db;
+    --primary-dark: #1041a8;
+    --primary-light: #e8effc;
+    --accent: #f59e0b;
+    --accent-light: #fef3c7;
+    --dark: #111827;
+    --gray-700: #374151;
+    --gray-500: #6b7280;
+    --gray-300: #d1d5db;
+    --gray-100: #f3f4f6;
+    --white: #ffffff;
+    --success: #059669;
+    --danger: #dc2626;
+    --radius: 12px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    color: var(--gray-700);
+    line-height: 1.7;
+    background: var(--gray-100);
+  }
+
+  /* ── Nav ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--gray-300);
+    z-index: 1000; padding: 0 2rem;
+  }
+  nav .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between; height: 64px;
+  }
+  nav .logo { font-size: 1.1rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+  nav .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+  nav .nav-links a { font-size: 0.9rem; color: var(--gray-500); text-decoration: none; transition: color 0.2s; }
+  nav .nav-links a:hover { color: var(--primary); }
+  @media (max-width: 768px) { nav .nav-links { display: none; } }
+
+  /* ── Hero ── */
+  .hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #7c3aed 100%);
+    color: white; padding: 10rem 2rem 6rem; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 60%);
+    animation: pulse 8s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
+  .hero .week-badge {
+    display: inline-block; background: var(--accent); color: #000;
+    font-weight: 800; font-size: 1rem; padding: 0.5rem 1.5rem;
+    border-radius: 999px; margin-bottom: 1.5rem; position: relative;
+    letter-spacing: 0.05em;
+  }
+  .hero h1 { font-size: 3.2rem; font-weight: 900; margin-bottom: 1rem; position: relative; line-height: 1.3; }
+  .hero h1 .highlight { color: var(--accent); }
+  .hero .subtitle {
+    font-size: 1.2rem; opacity: 0.9; max-width: 650px; margin: 0 auto 2.5rem; position: relative;
+  }
+  .hero .hero-stats {
+    display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; position: relative;
+  }
+  .hero .hero-stat { text-align: center; }
+  .hero .hero-stat .num { font-size: 2.5rem; font-weight: 900; color: var(--accent); }
+  .hero .hero-stat .desc { font-size: 0.85rem; opacity: 0.8; margin-top: 0.25rem; }
+
+  /* ── Container / Section ── */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+  section { padding: 5rem 0; }
+  section:nth-child(even) { background: var(--white); }
+  .section-header { text-align: center; margin-bottom: 3rem; }
+  .section-header .tag {
+    display: inline-block; background: var(--primary-light); color: var(--primary);
+    font-size: 0.8rem; font-weight: 600; padding: 0.3rem 1rem;
+    border-radius: 999px; margin-bottom: 0.75rem; letter-spacing: 0.05em;
+  }
+  .section-header h2 { font-size: 2rem; color: var(--dark); font-weight: 700; }
+  .section-header p { color: var(--gray-500); margin-top: 0.5rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+  /* ── Promise Banner ── */
+  .promise-banner {
+    background: linear-gradient(135deg, #1e40af, #7c3aed);
+    color: white; border-radius: var(--radius); padding: 3rem;
+    text-align: center; margin-top: 2rem;
+  }
+  .promise-banner h3 { font-size: 1.8rem; font-weight: 800; margin-bottom: 1rem; }
+  .promise-banner p { font-size: 1.05rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+  .promise-icons {
+    display: flex; justify-content: center; gap: 3rem; margin-top: 2rem; flex-wrap: wrap;
+  }
+  .promise-icon { text-align: center; }
+  .promise-icon .emoji { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  .promise-icon .text { font-size: 0.9rem; font-weight: 600; }
+
+  /* ── Pain Cards ── */
+  .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; }
+  .pain-card {
+    background: var(--white); border: 1px solid var(--gray-300);
+    border-radius: var(--radius); padding: 1.75rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .pain-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
+  .pain-card .icon {
+    width: 48px; height: 48px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 1rem;
+  }
+  .pain-card h3 { font-size: 1.1rem; color: var(--dark); margin-bottom: 0.5rem; }
+  .pain-card .stat { font-size: 0.85rem; color: var(--danger); font-weight: 600; margin-bottom: 0.5rem; }
+  .pain-card p { font-size: 0.9rem; color: var(--gray-500); }
+  .pain-card .after {
+    margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px dashed var(--gray-300);
+    font-size: 0.85rem; color: var(--success); font-weight: 600;
+  }
+
+  /* ── 3-Week Process ── */
+  .weeks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  @media (max-width: 900px) { .weeks-grid { grid-template-columns: 1fr; } }
+  .week-card {
+    background: var(--white); border: 1px solid var(--gray-300);
+    border-radius: var(--radius); padding: 2rem; position: relative; overflow: hidden;
+  }
+  .week-card .week-num {
+    position: absolute; top: -10px; right: -5px;
+    font-size: 6rem; font-weight: 900; color: rgba(26,86,219,0.06); line-height: 1;
+  }
+  .week-card .week-label {
+    display: inline-block; background: var(--primary); color: white;
+    font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.75rem;
+    border-radius: 999px; margin-bottom: 1rem;
+  }
+  .week-card h3 { font-size: 1.2rem; color: var(--dark); margin-bottom: 1rem; }
+  .week-card ul { list-style: none; }
+  .week-card li {
+    font-size: 0.9rem; color: var(--gray-700); padding: 0.4rem 0; padding-left: 1.5rem; position: relative;
+  }
+  .week-card li::before { content: '\2713'; position: absolute; left: 0; color: var(--success); font-weight: 700; }
+
+  /* ── Modules ── */
+  .modules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; }
+  .module-card {
+    background: var(--white); border: 1px solid var(--gray-300);
+    border-radius: var(--radius); padding: 2rem; position: relative; overflow: hidden;
+  }
+  .module-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+  .module-card:nth-child(1)::before { background: #3b82f6; }
+  .module-card:nth-child(2)::before { background: #10b981; }
+  .module-card:nth-child(3)::before { background: #f59e0b; }
+  .module-card:nth-child(4)::before { background: #8b5cf6; }
+  .module-card:nth-child(5)::before { background: #ec4899; }
+  .module-card:nth-child(6)::before { background: #06b6d4; }
+  .module-card .module-num {
+    font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--gray-500); margin-bottom: 0.5rem;
+  }
+  .module-card h3 { font-size: 1.15rem; color: var(--dark); margin-bottom: 1rem; }
+  .module-card ul { list-style: none; }
+  .module-card li {
+    font-size: 0.9rem; color: var(--gray-700); padding: 0.35rem 0;
+    padding-left: 1.5rem; position: relative;
+  }
+  .module-card li::before { content: '\2713'; position: absolute; left: 0; color: var(--success); font-weight: 700; }
+
+  /* ── Cases ── */
+  .case-category { margin-bottom: 3rem; }
+  .case-category h3 {
+    font-size: 1.3rem; color: var(--dark); margin-bottom: 1.25rem;
+    padding-left: 1rem; border-left: 4px solid var(--primary);
+  }
+  .case-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem; }
+  .case-card { background: var(--white); border: 1px solid var(--gray-300); border-radius: var(--radius); padding: 1.5rem; }
+  .case-card .company { font-weight: 700; color: var(--primary); font-size: 1rem; margin-bottom: 0.25rem; }
+  .case-card .region { font-size: 0.8rem; color: var(--gray-500); margin-bottom: 0.75rem; }
+  .case-card .action { font-size: 0.9rem; color: var(--gray-700); margin-bottom: 0.75rem; }
+  .case-card .result {
+    background: #ecfdf5; border-radius: 8px; padding: 0.75rem 1rem;
+    font-size: 0.85rem; color: #065f46; font-weight: 500;
+  }
+  .benchmark-bar {
+    background: var(--primary-light); border-radius: var(--radius);
+    padding: 1.25rem 1.5rem; margin-top: 1rem; font-size: 0.9rem;
+    color: var(--primary-dark); border-left: 4px solid var(--primary);
+  }
+
+  /* ── Stats Row ── */
+  .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 1.5rem; margin-top: 2rem; }
+  .stat-card { text-align: center; background: var(--white); border: 1px solid var(--gray-300); border-radius: var(--radius); padding: 2rem 1rem; }
+  .stat-card .number { font-size: 2.2rem; font-weight: 800; color: var(--primary); }
+  .stat-card .label { font-size: 0.85rem; color: var(--gray-500); margin-top: 0.25rem; }
+
+  /* ── Target ── */
+  .target-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  @media (max-width: 768px) { .target-grid { grid-template-columns: 1fr; } }
+  .target-box { background: var(--white); border: 1px solid var(--gray-300); border-radius: var(--radius); padding: 2rem; }
+  .target-box h3 { font-size: 1.15rem; color: var(--dark); margin-bottom: 1rem; }
+  .target-box li { font-size: 0.95rem; padding: 0.4rem 0; color: var(--gray-700); }
+  .target-box li strong { color: var(--dark); }
+
+  /* ── Pricing ── */
+  .service-levels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
+  @media (max-width: 900px) { .service-levels { grid-template-columns: 1fr; } }
+  .level-card {
+    background: var(--white); border: 1px solid var(--gray-300);
+    border-radius: var(--radius); padding: 2rem; text-align: center; position: relative;
+  }
+  .level-card.featured {
+    border: 2px solid var(--accent); box-shadow: 0 8px 30px rgba(245,158,11,0.15); transform: scale(1.03);
+  }
+  .level-card.featured .popular-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--accent); color: #000; font-size: 0.75rem; font-weight: 700;
+    padding: 0.25rem 1rem; border-radius: 999px;
+  }
+  .level-card .level-name {
+    font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--gray-500); margin-bottom: 0.5rem;
+  }
+  .level-card h3 { font-size: 1.3rem; color: var(--dark); margin-bottom: 0.5rem; }
+  .level-card .level-desc { font-size: 0.85rem; color: var(--gray-500); margin-bottom: 1rem; }
+  .level-card .price { font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 1.5rem; }
+  .level-card ul { list-style: none; text-align: left; }
+  .level-card li {
+    font-size: 0.9rem; padding: 0.4rem 0; padding-left: 1.5rem;
+    position: relative; color: var(--gray-700);
+  }
+  .level-card li::before { content: '\2713'; position: absolute; left: 0; color: var(--success); font-weight: 700; }
+
+  .pricing-table {
+    width: 100%; border-collapse: collapse; border-radius: var(--radius);
+    overflow: hidden; background: var(--white); box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .pricing-table th { background: var(--primary); color: white; padding: 1rem; text-align: left; font-size: 0.9rem; }
+  .pricing-table td { padding: 1rem; border-bottom: 1px solid var(--gray-100); font-size: 0.9rem; }
+  .pricing-table tr:last-child td { border-bottom: none; }
+  .pricing-table tr:hover td { background: var(--gray-100); }
+
+  /* ── Compare ── */
+  .compare-table {
+    width: 100%; border-collapse: collapse; border-radius: var(--radius);
+    overflow: hidden; background: var(--white); box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .compare-table th { padding: 1rem; text-align: left; font-size: 0.9rem; border-bottom: 2px solid var(--gray-300); color: var(--dark); }
+  .compare-table th:first-child { background: var(--gray-100); }
+  .compare-table th:nth-child(2) { color: var(--gray-500); }
+  .compare-table th:nth-child(3) { background: var(--accent-light); color: #92400e; }
+  .compare-table td { padding: 0.85rem 1rem; border-bottom: 1px solid var(--gray-100); font-size: 0.9rem; }
+  .compare-table td:nth-child(3) { background: rgba(254,243,199,0.3); font-weight: 600; color: #92400e; }
+
+  /* ── Tools ── */
+  .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  @media (max-width: 900px) { .tools-grid { grid-template-columns: 1fr; } }
+  .tool-card { background: var(--white); border: 1px solid var(--gray-300); border-radius: var(--radius); padding: 1.75rem; }
+  .tool-card h3 { font-size: 1.05rem; color: var(--dark); margin-bottom: 0.25rem; }
+  .tool-card .sub { font-size: 0.8rem; color: var(--gray-500); margin-bottom: 1rem; }
+  .tool-card .tool-item { font-size: 0.9rem; padding: 0.4rem 0; border-bottom: 1px solid var(--gray-100); }
+  .tool-card .tool-item:last-child { border-bottom: none; }
+  .tool-card .tool-item strong { color: var(--dark); }
+  .tool-card .tool-item span { color: var(--gray-500); }
+
+  /* ── Marketing ── */
+  .marketing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 1.5rem; }
+  .marketing-card { background: var(--white); border: 1px solid var(--gray-300); border-radius: var(--radius); padding: 1.75rem; }
+  .marketing-card .card-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; margin-bottom: 1rem;
+  }
+  .marketing-card h3 { font-size: 1.05rem; color: var(--dark); margin-bottom: 0.75rem; }
+  .marketing-card li { font-size: 0.9rem; color: var(--gray-700); padding: 0.3rem 0; }
+
+  /* ── Timeline ── */
+  .timeline { position: relative; padding-left: 3rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 12px; top: 0; bottom: 0;
+    width: 3px; background: linear-gradient(to bottom, var(--accent), #7c3aed); border-radius: 3px;
+  }
+  .timeline-item { position: relative; margin-bottom: 2.5rem; }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -2.35rem; top: 6px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--accent); border: 3px solid var(--white);
+    box-shadow: 0 0 0 3px var(--accent-light);
+  }
+  .timeline-item h3 { font-size: 1.15rem; color: var(--dark); margin-bottom: 0.75rem; }
+  .timeline-item .tasks {
+    background: var(--white); border: 1px solid var(--gray-300);
+    border-radius: var(--radius); padding: 1.25rem 1.5rem; list-style: none;
+  }
+  .timeline-item .tasks li {
+    font-size: 0.9rem; padding: 0.4rem 0; padding-left: 1.5rem;
+    position: relative; color: var(--gray-700);
+  }
+  .timeline-item .tasks li::before {
+    content: ''; position: absolute; left: 0; top: 0.7rem;
+    width: 12px; height: 12px; border: 2px solid var(--gray-300); border-radius: 3px;
+  }
+  .timeline-item .revenue {
+    display: inline-block; margin-top: 0.5rem;
+    background: var(--accent-light); color: #92400e;
+    font-size: 0.85rem; font-weight: 600; padding: 0.3rem 0.75rem; border-radius: 6px;
+  }
+
+  /* ── Finance ── */
+  .finance-table {
+    width: 100%; border-collapse: collapse; border-radius: var(--radius);
+    overflow: hidden; background: var(--white); box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 2rem;
+  }
+  .finance-table th { background: var(--dark); color: white; padding: 0.85rem 1rem; text-align: center; font-size: 0.85rem; }
+  .finance-table td { padding: 0.85rem 1rem; text-align: center; border-bottom: 1px solid var(--gray-100); font-size: 0.9rem; }
+  .finance-table tr.highlight td { background: var(--accent-light); font-weight: 700; color: #92400e; }
+  .finance-table tr.profit td { background: #ecfdf5; font-weight: 700; color: #065f46; }
+
+  /* ── Risk ── */
+  .risk-table {
+    width: 100%; border-collapse: collapse; border-radius: var(--radius);
+    overflow: hidden; background: var(--white); box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .risk-table th { background: var(--gray-100); padding: 0.85rem 1rem; text-align: left; font-size: 0.85rem; color: var(--dark); border-bottom: 2px solid var(--gray-300); }
+  .risk-table td { padding: 0.85rem 1rem; border-bottom: 1px solid var(--gray-100); font-size: 0.9rem; }
+  .risk-badge { display: inline-block; font-size: 0.75rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 999px; }
+  .risk-high { background: #fef2f2; color: #991b1b; }
+  .risk-mid { background: #fffbeb; color: #92400e; }
+  .risk-low { background: #ecfdf5; color: #065f46; }
+
+  /* ── Appendix ── */
+  .appendix-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 1.5rem; }
+  .appendix-card { background: var(--white); border: 1px solid var(--gray-300); border-radius: var(--radius); padding: 1.5rem; }
+  .appendix-card h3 { font-size: 1rem; color: var(--dark); margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-light); }
+  .appendix-card li { font-size: 0.85rem; color: var(--gray-700); padding: 0.3rem 0; }
+
+  /* ── Footer ── */
+  footer {
+    background: var(--dark); color: var(--gray-500); text-align: center;
+    padding: 3rem 2rem; font-size: 0.85rem;
+  }
+  footer strong { color: var(--white); }
+  footer .footer-tagline { color: var(--accent); font-weight: 600; margin-top: 0.5rem; }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .hero { padding: 8rem 1.5rem 4rem; }
+    .hero h1 { font-size: 2rem; }
+    .hero .subtitle { font-size: 1rem; }
+    .hero .hero-stats { gap: 1.5rem; }
+    .hero .hero-stat .num { font-size: 1.8rem; }
+    section { padding: 3rem 0; }
+    .section-header h2 { font-size: 1.5rem; }
+    .pain-grid, .modules-grid, .case-cards, .marketing-grid, .appendix-grid { grid-template-columns: 1fr; }
+    .service-levels, .tools-grid, .weeks-grid { grid-template-columns: 1fr; }
+    .level-card.featured { transform: none; }
+    .target-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .promise-icons { gap: 1.5rem; }
+    table { display: block; overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">AutoDone</a>
+    <ul class="nav-links">
+      <li><a href="#process">3 週流程</a></li>
+      <li><a href="#modules">服務模組</a></li>
+      <li><a href="#cases">成功案例</a></li>
+      <li><a href="#pricing">服務定價</a></li>
+      <li><a href="#roadmap">發展路線</a></li>
+      <li><a href="#finance">財務預估</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+  <div class="week-badge">3 週搞定，花錢就有感</div>
+  <h1>我們進場<br>直接幫你 <span class="highlight">自動化做到好</span></h1>
+  <p class="subtitle">不用學、不用改變習慣——我們直接動手，把你公司的重複性工作徹底自動化，員工立刻少加班、老闆立刻省成本</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="num">3 週</div>
+      <div class="desc">上線見效</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">75-97%</div>
+      <div class="desc">處理時間縮短</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">70-80%</div>
+      <div class="desc">成本直接砍下來</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">&lt;0.5%</div>
+      <div class="desc">錯誤率</div>
+    </div>
+  </div>
+</header>
+
+<!-- Promise -->
+<section>
+  <div class="container">
+    <div class="promise-banner">
+      <h3>我們的承諾：進場就有感</h3>
+      <p>你不需要組 IT 團隊、不需要員工上課培訓、不需要等半年一年。<br>我們帶著即戰力直接進場，3 週內讓你的流程自動跑起來。</p>
+      <div class="promise-icons">
+        <div class="promise-icon">
+          <div class="emoji">&#9889;</div>
+          <div class="text">3 週上線</div>
+        </div>
+        <div class="promise-icon">
+          <div class="emoji">&#128176;</div>
+          <div class="text">花了就省</div>
+        </div>
+        <div class="promise-icon">
+          <div class="emoji">&#129504;</div>
+          <div class="text">員工不用學</div>
+        </div>
+        <div class="promise-icon">
+          <div class="emoji">&#128200;</div>
+          <div class="text">數據驗收</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pain Points -->
+<section id="pain">
+  <div class="container">
+    <div class="section-header">
+      <span class="tag">YOUR PAIN, WE FIX IT</span>
+      <h2>這些痛，我們直接幫你解決</h2>
+      <p>你的員工每天在做的這些事，我們 3 週內讓它自動完成</p>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="icon" style="background:#fef2f2; color:#dc2626;">&#128451;</div>
+        <h3>發票 / 對帳人工作業</h3>
+        <div class="stat">每張發票 15-20 分鐘，錯誤率 39%</div>
+        <p>人力成本高、帳務錯誤頻繁，月底結帳壓力山大</p>
+        <div class="after">&#10148; 我們做完後：1 分鐘/張，錯誤率 &lt; 0.5%</div>
+      </div>
+      <div class="pain-card">
+        <div class="icon" style="background:#fef3c7; color:#f59e0b;">&#128196;</div>
+        <h3>報價流程冗長</h3>
+        <div class="stat">報價製作需數天，格式不統一</div>
+        <p>客戶等不及就跑了，報價錯誤造成利潤損失</p>
+        <div class="after">&#10148; 我們做完後：5 分鐘出報價，銷售額成長 25%</div>
+      </div>
+      <div class="pain-card">
+        <div class="icon" style="background:#ecfdf5; color:#059669;">&#128230;</div>
+        <h3>庫存盤點仰賴人工</h3>
+        <div class="stat">Excel 手動登錄，資訊落差大</div>
+        <p>缺貨或過量囤貨，資金積壓嚴重</p>
+        <div class="after">&#10148; 我們做完後：即時追蹤，資金佔用最高減少 94%</div>
+      </div>
+      <div class="pain-card">
+        <div class="icon" style="background:#ede9fe; color:#7c3aed;">&#128203;</div>
+        <h3>業務表單重複填寫</h3>
+        <div class="stat">同一筆資料在多系統重複輸入</div>
+        <p>耗時、易出錯、員工怨聲載道</p>
+        <div class="after">&#10148; 我們做完後：填一次自動同步，一週省 80 小時</div>
+      </div>
+      <div class="pain-card">
+        <div class="icon" style="background:#fce7f3; color:#ec4899;">&#128221;</div>
+        <h3>行政審批流程慢</h3>
+        <div class="stat">紙本簽核或 Email 來回</div>
+        <p>決策延遲、文件遺失，影響營運效率</p>
+        <div class="after">&#10148; 我們做完後：處理時間從 10 分鐘降至 20 秒</div>
+      </div>
+      <div class="pain-card">
+        <div class="icon" style="background:#e0f2fe; color:#0284c7;">&#128242;</div>
+        <h3>社群經營耗時耗力</h3>
+        <div class="stat">手動發文、一則則回覆留言</div>
+        <p>Threads / FB / IG 每天耗掉行銷人員大把時間</p>
+        <div class="after">&#10148; 我們做完後：自動發文排程 + AI 留言回覆</div>
+      </div>
+      <div class="pain-card">
+        <div class="icon" style="background:#fef2f2; color:#b91c1c;">&#128274;</div>
+        <h3>網站安全沒人顧</h3>
+        <div class="stat">漏洞被駭才發現，損失慘重</div>
+        <p>中小企業沒有資安人員，網站裸奔上線</p>
+        <div class="after">&#10148; 我們做完後：AI 自動掃描漏洞 + 即時告警</div>
+      </div>
+      <div class="pain-card">
+        <div class="icon" style="background:#f0fdf4; color:#16a34a;">&#128240;</div>
+        <h3>產業動態掌握不及時</h3>
+        <div class="stat">手動瀏覽新聞，資訊散落各處</div>
+        <p>競爭對手動作看不到，市場機會抓不住</p>
+        <div class="after">&#10148; 我們做完後：每日自動整理產業新聞 + AI 摘要</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3-Week Process -->
+<section id="process">
+  <div class="container">
+    <div class="section-header">
+      <span class="tag">3-WEEK DELIVERY</span>
+      <h2>3 週搞定，就是這麼快</h2>
+      <p>我們的即戰力團隊直接進場，從診斷到上線一氣呵成</p>
+    </div>
+    <div class="weeks-grid">
+      <div class="week-card">
+        <div class="week-num">1</div>
+        <span class="week-label">WEEK 1</span>
+        <h3>診斷 + 設計</h3>
+        <ul>
+          <li>現場訪談，拆解現有流程</li>
+          <li>找出最痛、最有感的自動化切入點</li>
+          <li>交付自動化藍圖與預期效益報告</li>
+        </ul>
+      </div>
+      <div class="week-card">
+        <div class="week-num">2</div>
+        <span class="week-label">WEEK 2</span>
+        <h3>建置 + 串接</h3>
+        <ul>
+          <li>自動化流程開發與系統串接</li>
+          <li>內部測試與微調</li>
+          <li>準備上線環境</li>
+        </ul>
+      </div>
+      <div class="week-card">
+        <div class="week-num">3</div>
+        <span class="week-label" style="background:var(--accent); color:#000;">WEEK 3</span>
+        <h3>上線 + 驗收</h3>
+        <ul>
+          <li>正式上線，即刻生效</li>
+          <li>員工操作說明（30 分鐘內學會）</li>
+          <li>效能數據驗收，確認省了多少</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modules -->
+<section id="modules">
+  <div class="container">
+    <div class="section-header">
+      <span class="tag">WE BUILD IT FOR YOU</span>
+      <h2>九大自動化模組</h2>
+      <p>我們直接幫你建好，你只要用就好</p>
+    </div>
+    <div class="modules-grid">
+      <div class="module-card">
+        <div class="module-num">Module 01</div>
+        <h3>發票與對帳自動化</h3>
+        <ul>
+          <li>發票自動辨識與 Key 單（OCR + AI）</li>
+          <li>三方比對自動化（採購單 / 驗收單 / 發票）</li>
+          <li>自動拋轉至會計系統</li>
+          <li>異常發票自動標記與通知</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-num">Module 02</div>
+        <h3>報價單自動化</h3>
+        <ul>
+          <li>產品/服務報價模板系統化</li>
+          <li>價格規則引擎（折扣、量價、客戶分級）</li>
+          <li>一鍵生成品牌化 PDF 報價單</li>
+          <li>報價追蹤與提醒自動化</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-num">Module 03</div>
+        <h3>庫存盤點自動化</h3>
+        <ul>
+          <li>即時庫存追蹤與儀表板</li>
+          <li>安全庫存自動預警</li>
+          <li>自動補貨建議 / 採購單生成</li>
+          <li>跨倉庫庫存同步</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-num">Module 04</div>
+        <h3>業務表單自動化</h3>
+        <ul>
+          <li>客戶訂單自動擷取與建檔</li>
+          <li>CRM 自動更新客戶資訊</li>
+          <li>業務日報/週報自動彙整</li>
+          <li>合約到期自動提醒</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-num">Module 05</div>
+        <h3>行政審批流程自動化</h3>
+        <ul>
+          <li>電子簽核流程（請假、報銷、採購）</li>
+          <li>文件自動歸檔與版本管理</li>
+          <li>會議紀錄自動生成與分派</li>
+          <li>到期文件自動提醒</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-num">Module 06</div>
+        <h3>跨系統整合自動化</h3>
+        <ul>
+          <li>ERP / CRM / 會計系統串接</li>
+          <li>Email / LINE / Slack 通知自動化</li>
+          <li>資料自動同步與一致性維護</li>
+          <li>自訂 Dashboard 即時監控</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-num">Module 07</div>
+        <h3>社群媒體自動化</h3>
+        <ul>
+          <li>Threads / Facebook / IG 自動發文排程</li>
+          <li>留言自動回覆與分類處理</li>
+          <li>社群數據分析與成效報表</li>
+          <li>跨平台內容一鍵同步發佈</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-num">Module 08</div>
+        <h3>AI 資安掃描自動化</h3>
+        <ul>
+          <li>網站安全漏洞自動掃描</li>
+          <li>即時威脅偵測與告警通知</li>
+          <li>弱點報告自動生成</li>
+          <li>合規檢查與修復建議</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-num">Module 09</div>
+        <h3>產業新聞情報自動化</h3>
+        <ul>
+          <li>每日產業新聞自動蒐集與整理</li>
+          <li>競爭對手動態自動監控</li>
+          <li>AI 摘要與重點提煉</li>
+          <li>自動派送至 Email / LINE / Slack</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cases -->
+<section id="cases">
+  <div class="container">
+    <div class="section-header">
+      <span class="tag">PROVEN RESULTS</span>
+      <h2>全球企業驗證的效果</h2>
+      <p>這些企業已經證明：自動化 = 立即省錢省時間</p>
+    </div>
+
+    <div class="case-category">
+      <h3>發票與對帳自動化</h3>
+      <div class="case-cards">
+        <div class="case-card">
+          <div class="company">Arnott's Group</div>
+          <div class="region">澳洲 / 食品製造</div>
+          <div class="action">AI 文件辨識 + RPA，自動化發票處理與 SAP 拋轉</div>
+          <div class="result">人工作業減少 75%，10 個月回收投資，外包團隊縮減為小型內部團隊</div>
+        </div>
+        <div class="case-card">
+          <div class="company">高成長電商零售商</div>
+          <div class="region">美洲 / 零售電商</div>
+          <div class="action">導入端到端 AP 自動化方案</div>
+          <div class="result">95% 發票實現零人工介入處理</div>
+        </div>
+        <div class="case-card">
+          <div class="company">Bohus</div>
+          <div class="region">挪威 / 零售連鎖</div>
+          <div class="action">集中處理每年 30 萬張發票</div>
+          <div class="result">利潤率提升，全組織標準化作業流程</div>
+        </div>
+      </div>
+      <div class="benchmark-bar">產業基準：人工每張發票 $12-30 美元 &rarr; 自動化後 $1-5 美元；錯誤率從 39% 降至 0.5% 以下</div>
+    </div>
+
+    <div class="case-category">
+      <h3>報價單自動化</h3>
+      <div class="case-cards">
+        <div class="case-card">
+          <div class="company">Riverhead Building Supply</div>
+          <div class="region">美國 / 建材</div>
+          <div class="action">產品配置與報價系統自動化</div>
+          <div class="result">報價從數週縮至數分鐘，銷售額成長 25%</div>
+        </div>
+        <div class="case-card">
+          <div class="company">Daikin Applied UK</div>
+          <div class="region">英國 / 空調製造</div>
+          <div class="action">冷凍機報價全自動化</div>
+          <div class="result">報價時間縮短 50%，支援行動裝置即時報價</div>
+        </div>
+        <div class="case-card">
+          <div class="company">經銷商組織</div>
+          <div class="region">全球 / 經銷</div>
+          <div class="action">雲端報價系統取代 Excel</div>
+          <div class="result">自動產出品牌化 PDF 報價單，銷售週期大幅縮短</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-category">
+      <h3>庫存盤點自動化</h3>
+      <div class="case-cards">
+        <div class="case-card">
+          <div class="company">Walmart</div>
+          <div class="region">美國 / 零售</div>
+          <div class="action">即時庫存追蹤 + 自動補貨 + 供應商協作</div>
+          <div class="result">消除長鞭效應，杜絕缺貨與過量囤貨</div>
+        </div>
+        <div class="case-card">
+          <div class="company">Avaya</div>
+          <div class="region">美國 / 科技電信</div>
+          <div class="action">統一跨企業庫存管理平台</div>
+          <div class="result">庫存週轉率提升 200%，資金佔用減少 94%</div>
+        </div>
+        <div class="case-card">
+          <div class="company">BMW</div>
+          <div class="region">德國 / 汽車製造</div>
+          <div class="action">智慧物流室內定位追蹤</div>
+          <div class="result">製造物流即時定位，產線效率顯著提升</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-category">
+      <h3>業務表單與訂單自動化</h3>
+      <div class="case-cards">
+        <div class="case-card">
+          <div class="company">AustriaCard Holdings</div>
+          <div class="region">歐洲 / 硬體製造</div>
+          <div class="action">RPA 自動從 Email 擷取訂單上傳 ERP</div>
+          <div class="result">三年內節省超過 2,000 人天</div>
+        </div>
+        <div class="case-card">
+          <div class="company">VOW</div>
+          <div class="region">英國 / 汽車零件經銷</div>
+          <div class="action">銷售訂單自動化更新至 ERP</div>
+          <div class="result">處理時間大幅縮短，客戶滿意度提升</div>
+        </div>
+        <div class="case-card">
+          <div class="company">British American Tobacco</div>
+          <div class="region">全球 / 製造業</div>
+          <div class="action">44 座工廠 SAP 訂單自動化</div>
+          <div class="result">全球節省超過 23 萬工時</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-category">
+      <h3>行政流程自動化</h3>
+      <div class="case-cards">
+        <div class="case-card">
+          <div class="company">AccentCare</div>
+          <div class="region">美國 / 醫療照護</div>
+          <div class="action">病患記錄管理與資格驗證自動化</div>
+          <div class="result">1 萬筆記錄遷移節省 $100,000 美元</div>
+        </div>
+        <div class="case-card">
+          <div class="company">Co-operative Bank</div>
+          <div class="region">英國 / 銀行</div>
+          <div class="action">CHAPS 轉帳處理自動化</div>
+          <div class="result">每筆從 10 分鐘降至 20 秒（減少 97%）</div>
+        </div>
+        <div class="case-card">
+          <div class="company">東風日產</div>
+          <div class="region">中國 / 汽車製造</div>
+          <div class="action">多項行政流程 RPA 自動化</div>
+          <div class="result">三年內年省超過 13,000 小時</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Target -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <span class="tag">WHO WE SERVE</span>
+      <h2>我們幫誰做</h2>
+    </div>
+    <div class="target-grid">
+      <div class="target-box">
+        <h3>最適合的企業</h3>
+        <ul>
+          <li><strong>中小企業（50-300 人）</strong> &mdash; 沒時間搞 IT，需要外部即戰力直接搞定</li>
+          <li><strong>成長型企業（300-1000 人）</strong> &mdash; 流程已經很複雜但還在用人工撐，自動化效果最炸裂</li>
+          <li><strong>傳統製造業 / 貿易商</strong> &mdash; 還在用 Excel 跟紙本，導入後效果最明顯</li>
+        </ul>
+      </div>
+      <div class="target-box">
+        <h3>目標產業</h3>
+        <ul>
+          <li>製造業（機械、電子、食品）</li>
+          <li>批發零售業 / 經銷商</li>
+          <li>貿易進出口商</li>
+          <li>專業服務業（會計師事務所、法律事務所）</li>
+          <li>醫療照護機構</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <span class="tag">INVESTMENT</span>
+      <h2>服務方案與投資</h2>
+      <p>花了就有感，數據驗收讓你看到省了多少</p>
+    </div>
+    <div class="service-levels">
+      <div class="level-card">
+        <div class="level-name">快速啟動</div>
+        <h3>快速健檢</h3>
+        <div class="level-desc">找出你公司最該自動化的流程</div>
+        <div class="price">NT$ 3-5 萬</div>
+        <ul>
+          <li>現場訪談 + 流程拆解</li>
+          <li>自動化藍圖交付</li>
+          <li>預期效益與 ROI 報告</li>
+        </ul>
+      </div>
+      <div class="level-card featured">
+        <div class="popular-badge">CP 值最高</div>
+        <div class="level-name">單點突破</div>
+        <h3>單模組導入</h3>
+        <div class="level-desc">挑最痛的一個流程，3 週做到好</div>
+        <div class="price">NT$ 8-15 萬</div>
+        <ul>
+          <li>1 個自動化模組完整建置</li>
+          <li>系統串接與上線</li>
+          <li>員工操作說明</li>
+          <li>效能數據驗收</li>
+        </ul>
+      </div>
+      <div class="level-card">
+        <div class="level-name">全面升級</div>
+        <h3>全面自動化</h3>
+        <div class="level-desc">整間公司的流程我們全部搞定</div>
+        <div class="price">NT$ 30-80 萬</div>
+        <ul>
+          <li>3-6 個模組完整建置</li>
+          <li>跨系統整合串接</li>
+          <li>全部做到好交鑰匙</li>
+          <li>30 天售後保固</li>
+        </ul>
+      </div>
+    </div>
+
+    <table class="pricing-table">
+      <thead>
+        <tr><th>加值服務</th><th>內容</th><th>費用</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>持續維運</strong></td>
+          <td>月度維護 + 優化 + 新需求擴充</td>
+          <td>NT$ 20,000 - 40,000/月</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Competitive -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <span class="tag">WHY US</span>
+      <h2>為什麼選我們</h2>
+    </div>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>比較面向</th>
+          <th>傳統系統商</th>
+          <th>我們</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>導入方式</strong></td>
+          <td>賣軟體 + 漫長客製</td>
+          <td>直接進場幫你做到好</td>
+        </tr>
+        <tr>
+          <td><strong>成本</strong></td>
+          <td>動輒百萬以上</td>
+          <td>數萬起步，花了就有感</td>
+        </tr>
+        <tr>
+          <td><strong>導入時間</strong></td>
+          <td>6-12 個月</td>
+          <td>3 週上線，立即見效</td>
+        </tr>
+        <tr>
+          <td><strong>員工負擔</strong></td>
+          <td>需要大量培訓學習</td>
+          <td>員工不用學，流程自動跑</td>
+        </tr>
+        <tr>
+          <td><strong>彈性</strong></td>
+          <td>系統固定、修改困難</td>
+          <td>靈活調整、快速迭代</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Tools -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <span class="tag">TECH STACK</span>
+      <h2>我們用的工具</h2>
+      <p>你不用懂這些，我們幫你選最適合的方案直接做</p>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-card">
+        <h3>輕量方案</h3>
+        <div class="sub">適合中小企業</div>
+        <div class="tool-item"><strong>流程自動化：</strong><span>Make / Zapier / n8n</span></div>
+        <div class="tool-item"><strong>表單與文件：</strong><span>Google Workspace / Notion / Airtable</span></div>
+        <div class="tool-item"><strong>報價系統：</strong><span>PandaDoc / Google Sheets</span></div>
+        <div class="tool-item"><strong>庫存管理：</strong><span>Airtable / DEAR Inventory</span></div>
+      </div>
+      <div class="tool-card">
+        <h3>進階方案</h3>
+        <div class="sub">適合成長型企業</div>
+        <div class="tool-item"><strong>RPA：</strong><span>UiPath / Power Automate</span></div>
+        <div class="tool-item"><strong>CPQ 報價：</strong><span>Salesforce CPQ / HubSpot</span></div>
+        <div class="tool-item"><strong>ERP 整合：</strong><span>鼎新 / SAP Business One / Odoo</span></div>
+        <div class="tool-item"><strong>BI 儀表板：</strong><span>Power BI / Metabase</span></div>
+      </div>
+      <div class="tool-card">
+        <h3>AI 加值方案</h3>
+        <div class="sub">智慧化升級</div>
+        <div class="tool-item"><strong>OCR 辨識：</strong><span>Google Document AI / Azure</span></div>
+        <div class="tool-item"><strong>智慧客服：</strong><span>ChatGPT API / Claude API</span></div>
+        <div class="tool-item"><strong>預測分析：</strong><span>需求預測、庫存最佳化</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Marketing -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <span class="tag">GROWTH</span>
+      <h2>行銷與獲客策略</h2>
+    </div>
+    <div class="marketing-grid">
+      <div class="marketing-card">
+        <div class="card-icon" style="background:#e8effc; color:#1a56db;">&#9998;</div>
+        <h3>內容行銷（主力）</h3>
+        <ul>
+          <li>Facebook 長文分享實戰案例</li>
+          <li>YouTube 自動化 Before/After Demo</li>
+          <li>部落格 / 電子報：每週一篇</li>
+        </ul>
+      </div>
+      <div class="marketing-card">
+        <div class="card-icon" style="background:#ecfdf5; color:#059669;">&#127908;</div>
+        <h3>活動獲客</h3>
+        <ul>
+          <li>免費線上研討會</li>
+          <li>企業內訓講座（付費）</li>
+          <li>產業公會 / 商會演講</li>
+        </ul>
+      </div>
+      <div class="marketing-card">
+        <div class="card-icon" style="background:#fef3c7; color:#f59e0b;">&#128101;</div>
+        <h3>口碑轉介</h3>
+        <ul>
+          <li>Before/After 成效影片</li>
+          <li>客戶推薦獎勵計畫</li>
+          <li>會計師事務所、ERP 廠商轉介</li>
+        </ul>
+      </div>
+      <div class="marketing-card">
+        <div class="card-icon" style="background:#ede9fe; color:#7c3aed;">&#128640;</div>
+        <h3>數位廣告</h3>
+        <ul>
+          <li>Google Ads 精準關鍵字</li>
+          <li>Facebook / LinkedIn 投放</li>
+          <li>鎖定中小企業主與營運主管</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Roadmap -->
+<section id="roadmap">
+  <div class="container">
+    <div class="section-header">
+      <span class="tag">ROADMAP</span>
+      <h2>營運計畫與里程碑</h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <h3>Phase 1：打樣期（第 1-3 個月）</h3>
+        <ul class="tasks">
+          <li>完成服務方案與定價設計</li>
+          <li>建立品牌官網 / Landing Page</li>
+          <li>製作 3-5 個自動化 Before/After Demo</li>
+          <li>發布第一篇 FB 長文，開始內容行銷</li>
+          <li>取得前 3 位種子客戶，做出漂亮案例</li>
+        </ul>
+      </div>
+      <div class="timeline-item">
+        <h3>Phase 2：口碑期（第 4-6 個月）</h3>
+        <ul class="tasks">
+          <li>完成前 3 個客戶，收集成效數據與推薦</li>
+          <li>根據實戰經驗優化 3 週交付流程</li>
+          <li>舉辦第一場線上研討會</li>
+          <li>每月穩定產出 4 篇內容</li>
+        </ul>
+        <span class="revenue">月營收目標：NT$ 100,000</span>
+      </div>
+      <div class="timeline-item">
+        <h3>Phase 3：規模化（第 7-12 個月）</h3>
+        <ul class="tasks">
+          <li>建立標準化 3 週交付 SOP</li>
+          <li>招募 1-2 位自動化工程師</li>
+          <li>同時服務多家客戶</li>
+          <li>建立合作夥伴生態系</li>
+        </ul>
+        <span class="revenue">月營收目標：NT$ 300,000</span>
+      </div>
+      <div class="timeline-item">
+        <h3>Phase 4：擴展（第二年）</h3>
+        <ul class="tasks">
+          <li>推出產業專屬方案（製造業版、貿易商版）</li>
+          <li>開發自有自動化模板 / 工具包</li>
+          <li>建立自動化服務品牌認證</li>
+        </ul>
+        <span class="revenue">年營收目標：NT$ 5,000,000</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Finance -->
+<section id="finance">
+  <div class="container">
+    <div class="section-header">
+      <span class="tag">FINANCIALS</span>
+      <h2>第一年財務預估</h2>
+    </div>
+    <table class="finance-table">
+      <thead>
+        <tr><th>項目</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th><th>全年</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>健檢服務（件）</td><td>3</td><td>5</td><td>8</td><td>10</td><td>26</td></tr>
+        <tr><td>模組導入（件）</td><td>1</td><td>3</td><td>5</td><td>6</td><td>15</td></tr>
+        <tr><td>維運月費（戶）</td><td>0</td><td>1</td><td>3</td><td>5</td><td>&mdash;</td></tr>
+        <tr class="highlight"><td>營收（萬）</td><td>22</td><td>62</td><td>120</td><td>164</td><td>368</td></tr>
+        <tr><td>成本（萬）</td><td>15</td><td>25</td><td>45</td><td>60</td><td>145</td></tr>
+        <tr class="profit"><td>淨利（萬）</td><td>7</td><td>37</td><td>75</td><td>104</td><td>223</td></tr>
+      </tbody>
+    </table>
+    <div style="max-width:600px;">
+      <h3 style="font-size:1.1rem; margin-bottom:0.75rem; color:var(--dark);">主要成本結構</h3>
+      <ul style="list-style:none;">
+        <li style="padding:0.4rem 0; font-size:0.9rem; border-bottom:1px solid var(--gray-100);">&#128187; 工具訂閱：NT$ 5,000 - 10,000/月</li>
+        <li style="padding:0.4rem 0; font-size:0.9rem; border-bottom:1px solid var(--gray-100);">&#128226; 行銷費用：營收的 15-20%</li>
+        <li style="padding:0.4rem 0; font-size:0.9rem; border-bottom:1px solid var(--gray-100);">&#128101; 自動化工程師：Phase 3 開始</li>
+        <li style="padding:0.4rem 0; font-size:0.9rem;">&#128218; 持續學習與工具升級</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Risk -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <span class="tag">RISK</span>
+      <h2>風險評估與對策</h2>
+    </div>
+    <table class="risk-table">
+      <thead>
+        <tr><th>風險</th><th>可能性</th><th>影響</th><th>對策</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>企業主觀望不願投資</td>
+          <td><span class="risk-badge risk-high">高</span></td>
+          <td><span class="risk-badge risk-mid">中</span></td>
+          <td>提供免費健檢 + 小規模試點，讓效果說話</td>
+        </tr>
+        <tr>
+          <td>市場教育成本高</td>
+          <td><span class="risk-badge risk-mid">中</span></td>
+          <td><span class="risk-badge risk-mid">中</span></td>
+          <td>持續內容行銷 + Before/After 成效對比</td>
+        </tr>
+        <tr>
+          <td>客戶期望過高</td>
+          <td><span class="risk-badge risk-mid">中</span></td>
+          <td><span class="risk-badge risk-high">高</span></td>
+          <td>明確 SLA + 數據驗收 + 管理預期</td>
+        </tr>
+        <tr>
+          <td>技術工具更迭快</td>
+          <td><span class="risk-badge risk-mid">中</span></td>
+          <td><span class="risk-badge risk-low">低</span></td>
+          <td>保持工具中立，持續學習新技術</td>
+        </tr>
+        <tr>
+          <td>大型顧問公司進入</td>
+          <td><span class="risk-badge risk-low">低</span></td>
+          <td><span class="risk-badge risk-mid">中</span></td>
+          <td>聚焦中小企業，用速度與性價比競爭</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Appendix -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <span class="tag">APPENDIX</span>
+      <h2>我們能自動化的所有流程</h2>
+    </div>
+    <div class="appendix-grid">
+      <div class="appendix-card">
+        <h3>財務 / 會計</h3>
+        <ul>
+          <li>發票辨識與 Key 單</li>
+          <li>應付帳款三方比對</li>
+          <li>費用報銷審批</li>
+          <li>銀行對帳</li>
+          <li>稅務申報資料彙整</li>
+          <li>月結報表自動生成</li>
+        </ul>
+      </div>
+      <div class="appendix-card">
+        <h3>業務 / 銷售</h3>
+        <ul>
+          <li>報價單製作與發送</li>
+          <li>訂單接收與建檔</li>
+          <li>客戶資料更新</li>
+          <li>業績報表自動彙整</li>
+          <li>合約到期提醒</li>
+          <li>客戶跟進提醒</li>
+        </ul>
+      </div>
+      <div class="appendix-card">
+        <h3>倉儲 / 物流</h3>
+        <ul>
+          <li>庫存即時追蹤</li>
+          <li>安全庫存預警</li>
+          <li>自動補貨建議</li>
+          <li>出入庫單據處理</li>
+          <li>盤點差異分析</li>
+        </ul>
+      </div>
+      <div class="appendix-card">
+        <h3>人資 / 行政</h3>
+        <ul>
+          <li>請假與加班審批</li>
+          <li>薪資計算前置作業</li>
+          <li>新進員工 Onboarding</li>
+          <li>文件電子簽核</li>
+          <li>會議紀錄整理與分發</li>
+        </ul>
+      </div>
+      <div class="appendix-card">
+        <h3>客服 / 支援</h3>
+        <ul>
+          <li>客訴工單自動分派</li>
+          <li>常見問題自動回覆</li>
+          <li>服務到期續約提醒</li>
+          <li>客戶滿意度調查</li>
+        </ul>
+      </div>
+      <div class="appendix-card">
+        <h3>社群 / 行銷</h3>
+        <ul>
+          <li>Threads 貼文自動發佈</li>
+          <li>FB / IG 排程發文</li>
+          <li>留言自動回覆與分類</li>
+          <li>社群成效數據報表</li>
+          <li>跨平台內容同步</li>
+        </ul>
+      </div>
+      <div class="appendix-card">
+        <h3>資安 / 合規</h3>
+        <ul>
+          <li>網站 AI 安全漏洞掃描</li>
+          <li>即時威脅偵測與告警</li>
+          <li>弱點報告自動生成</li>
+          <li>合規檢查自動化</li>
+        </ul>
+      </div>
+      <div class="appendix-card">
+        <h3>情報 / 研究</h3>
+        <ul>
+          <li>每日產業新聞自動整理</li>
+          <li>競爭對手動態監控</li>
+          <li>AI 新聞摘要與重點提煉</li>
+          <li>情報自動派送</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p><strong>企業流程自動化服務</strong></p>
+  <p class="footer-tagline">我們進場，3 週搞定，花錢就有感</p>
+  <p style="margin-top:1rem; font-size:0.8rem;">Business Plan v2.0 &mdash; 2026 年 3 月</p>
+</footer>
+
+</body>
+</html>
